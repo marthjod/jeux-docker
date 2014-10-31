@@ -1,12 +1,6 @@
 # jeuxngo-docker
 
-[Dockerized](https://docker.com) [Django](https://www.djangoproject.com/) rewrite of [JEUX](https://github.com/marthjod/jeux) webapp
-
-- Structure:
-
-<img src="structure.svg" />
-
-
+[Docker](https://docker.com) containers for [jeuxngo](https://github.com/marthjod/jeuxngo) webapp
 
 ## Customize/prepare image resources
 
