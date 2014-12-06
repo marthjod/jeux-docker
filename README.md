@@ -17,7 +17,7 @@
 
 ## Run containers
 
-- `docker run -ti --name sources jeuxngo/data-volume`
+- `docker run -ti --name sources jeuxngo/data-volume` -- or, make a local source directory available `docker run -ti --name sources -v /path/to/jeuxngo jeuxngo/data-volume`
 - `docker run -d --name db jeuxngo/db`
 - `docker run -d -p 8000:8000 --volumes-from sources --link db:db jeuxngo/django` (Optionally, replace first `8000` with a Docker host port where webapp should be accessible.)
 - Check that web app is running at http://DOCKER_HOST:PORT/rankings/ (e.g., http://localhost:8000/rankings/)
