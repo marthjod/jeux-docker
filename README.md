@@ -1,4 +1,4 @@
-# jeuxngo
+# jeux-docker
 
 [Docker](https://docker.com) containers for running [jeux](https://github.com/marthjod/jeux) backend and jeuxngo [jeuxngo](https://github.com/marthjod/jeuxngo) frontend
 
