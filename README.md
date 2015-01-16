@@ -28,6 +28,7 @@ docker run -d \
 	-e JEUX_DB_USER=jeuxdb_user \
 	-e "JEUX_DB_PASS=thepass" \
 	-e "DJANGO_SECRET_KEY=yourkey" \
+	-e APP_URL_PREFIX=audience \
 	-p 8000:8000 \
 	--link db:db \
 	--name django
