@@ -10,7 +10,7 @@
 `docker build -t=jeux/frontend frontend/`
 - Java EE backend web app:
 	- Add prerequisites under _resources/_
-	- `docker build -t=jeux/backend backend/`
+	- `docker build -t=jeux/appserver appserver/`
 - Nginx webserver container:
 `docker build -t=jeux/webserver webserver/`
 - Optionally, for development: data volume containing app's sources (cloned from [JEUX](https://github.com/marthjod/jeux)):
@@ -32,7 +32,6 @@ docker run -d \
 	-e "JEUX_DB_PASS=thepass" \
 	-e "DJANGO_SECRET_KEY=yourkey" \
 	-e APP_URL_PREFIX=audience \
-	-p 8000:8000 \
 	--link db:db \
 	--name frontend
 	jeux/frontend
@@ -44,16 +43,16 @@ docker run -it \
 	-e JEUX_DB_USER=jeuxdb_user \
 	-e "JEUX_DB_PASS=thepass" \
 	--link db:db \
-	-p 8080:8080 \
-	jeux/frontend
+	jeux/appserver
 
 docker run -it \
 	-p 80:80 \
 	--link frontend:frontend \
+    --link appserver:appserver \
 	jeux/webserver
 ```
 
-- Access webapp at http://DOCKER_HOST:PORT/audience/rankings/ (e.g., http://localhost:80/audience/rankings/)
+- Access webapp at http://DOCKER_HOST:80/audience/rankings/ and http://DOCKER_HOST:80/admin/
 
 ## Developing (WIP)
 
