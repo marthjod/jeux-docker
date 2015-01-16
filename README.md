@@ -7,7 +7,10 @@
 - Database container (gets populated with test data SQL dump during build):
 `docker build -t=jeux/db db/`
 - Django framework container:
-`docker build -t=jeux/django django/`
+`docker build -t=jeux/frontend frontend/`
+- Java EE backend web app:
+	- Add prerequisites under _resources/_
+	- `docker build -t=jeux/backend backend/`
 - Nginx webserver container:
 `docker build -t=jeux/webserver webserver/`
 - Optionally, for development: data volume containing app's sources (cloned from [JEUX](https://github.com/marthjod/jeux)):
@@ -31,18 +34,28 @@ docker run -d \
 	-e APP_URL_PREFIX=audience \
 	-p 8000:8000 \
 	--link db:db \
-	--name django
-	jeux/django
+	--name frontend
+	jeux/frontend
+
+docker run -it \
+	-e JEUX_DB_HOST=db \
+	-e JEUX_DB_PORT=3306 \
+	-e JEUX_DB_NAME=jeuxdb \
+	-e JEUX_DB_USER=jeuxdb_user \
+	-e "JEUX_DB_PASS=thepass" \
+	--link db:db \
+	-p 8080:8080 \
+	jeux/frontend
 
 docker run -it \
 	-p 80:80 \
-	--link django:django \
+	--link frontend:frontend \
 	jeux/webserver
 ```
 
 - Access webapp at http://DOCKER_HOST:PORT/audience/rankings/ (e.g., http://localhost:80/audience/rankings/)
 
-## Developing
+## Developing (WIP)
 
 - Example:
 
@@ -52,7 +65,7 @@ docker run -ti --name sources jeux/data-volume
 docker run -ti --name sources -v /path/to/jeux/sources jeuxngo/data-volume
 
 docker run -d --name db jeux/db
-docker run -d -p 8000:8000 --volumes-from sources --link db:db jeux/django
+docker run -d -p 8000:8000 --volumes-from sources --link db:db jeux/frontend
 ```
 
 
